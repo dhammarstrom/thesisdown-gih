@@ -1,9 +1,8 @@
-% This is the Reed College LaTeX thesis template. Most of the work
+% This is the template used for the GIH thesis. It is based on 
+% Reed College LaTeX thesis template. Most of the work (Reed template)
 % for the document class was done by Sam Noble (SN), as well as this
 % template. Later comments etc. by Ben Salzberg (BTS). Additional
 % restructuring and APA support by Jess Youngberg (JY).
-% Your comments and suggestions are more than welcome; please email
-% them to cus@reed.edu
 %
 % See http://web.reed.edu/cis/help/latex.html for help. There are a
 % great bunch of help pages there, with notes on
@@ -16,15 +15,17 @@
 % Commenting also removes a line from the document;
 % very handy for troubleshooting problems. -BTS
 
-% As far as I know, this follows the requirements laid out in
-% the 2002-2003 Senior Handbook. Ask a librarian to check the
-% document before binding. -SN
+% The template was updated by Daniel Hammarström to fit GIH
+% requirements. Additional code was borrowed from the 
+% Stockholm University (Andreas Solders 2011) template.
+
+% The template was forked from the thesisdown package (CII updates)
 
 %%
 %% Preamble
 %%
 % \documentclass{<something>} must begin each LaTeX document
-\documentclass[12pt,twoside]{reedthesis}
+\documentclass[twoside,10pt]{gihclass} %Default style using S5 paper
 % Packages are extensions to the basic LaTeX functions. Whatever you
 % want to typeset, there is probably a package out there for it.
 % Chemistry (chemtex), screenplays, you name it.
@@ -37,7 +38,11 @@
 \usepackage{chemarr} %% Useful for one reaction arrow, useless if you're not a chem major
 \usepackage[hyphens]{url}
 % Added by CII
-\usepackage{hyperref}
+\usepackage{hyperref,xcolor}
+\hypersetup{
+    colorlinks = false,
+    pdfborder={0 0 0}
+}
 \usepackage{lmodern}
 \usepackage{float}
 \floatplacement{figure}{H}
@@ -66,6 +71,7 @@
 \captionsetup{width=5in}
 % End of CII addition
 
+
 % \usepackage{times} % other fonts are available like times, bookman, charter, palatino
 
 % Syntax highlighting #22
@@ -74,23 +80,28 @@ $if(highlighting-macros)$
 $endif$
 
 % To pass between YAML and LaTeX the dollar signs are added by CII
+
+% New variables 2019-02-06 GIH copyright info 
+\isbn{$isbn$} 
+\place{$place$}
+\printeby{$printedby$}
+\coverinfo{$coverinfo$}
+\year{$year$}
+
+
+
 \title{$title$}
 \author{$author$}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
 \date{$date$}
-\division{$division$}
-\advisor{$advisor$}
-\institution{$institution$}
-\degree{$degree$}
+
+
 %If you have two advisors for some reason, you can use the following
 % Uncommented out by CII
-$if(altadvisor)$
-\altadvisor{$altadvisor$}
-$endif$
+\sernr{$sernr$}
 % End of CII addition
-
 %%% Remember to use the correct department!
-\department{$department$}
+
 % if you're writing a thesis in an interdisciplinary major,
 % uncomment the line below and change the text as appropriate.
 % check the Senior Handbook if unsure.
@@ -127,9 +138,8 @@ $endif$
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\Acknowledgements{
-$acknowledgements$
-}
+
+
 
 \Dedication{
 $dedication$
@@ -154,18 +164,32 @@ $endfor$
 
 \begin{document}
 
+
+
+
 % Everything below added by CII
+
+
+\frontmatter % this stuff will be roman-numbered
+% \pagestyle{empty} % this removes page numbers from the frontmatter
 $if(title)$
   \maketitle
 $endif$
 
-\frontmatter % this stuff will be roman-numbered
-\pagestyle{empty} % this removes page numbers from the frontmatter
+$if(dedication)$
+  \begin{dedication}
+  \topskip0pt
+\vspace*{\fill}
+ $dedication$
+\vspace*{\fill}
+  \end{dedication}
+$endif$
 
-$if(acknowledgements)$
-  \begin{acknowledgements}
-    $acknowledgements$
-  \end{acknowledgements}
+
+$if(defence)$
+\begin{defence}
+    $defence$
+  \end{defence}
 $endif$
 
 $if(preface)$
@@ -173,6 +197,16 @@ $if(preface)$
     $preface$
   \end{preface}
 $endif$
+
+
+$if(abstract)$
+  \begin{abstract}
+    $abstract$
+  \end{abstract}
+$endif$
+
+
+
 
 $if(toc)$
   \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
@@ -188,17 +222,8 @@ $if(lof)$
   \listoffigures
 $endif$
 
-$if(abstract)$
-  \begin{abstract}
-    $abstract$
-  \end{abstract}
-$endif$
 
-$if(dedication)$
-  \begin{dedication}
-    $dedication$
-  \end{dedication}
-$endif$
+
 
 \mainmatter % here the regular arabic numbering starts
 \pagestyle{fancyplain} % turns page numbering back on

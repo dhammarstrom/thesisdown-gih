@@ -1,30 +1,17 @@
-# thesisdown
+# thesisdowngih
 
-This project was inspired by the [bookdown](http://github.com/rstudio/bookdown) package and is an updated version of my Senior Thesis template in the `reedtemplates` package [here](http://github.com/ismayc/reedtemplates).
+This is a fork from the [thesisdown](https://github.com/ismayc/thesisdown) project. Modification has been made to meet requirements of doctoral theses presented at the [Swedish School of Sport and Health Sciences (GIH)](http://www.gih.se).
 
-Currently, the PDF and gitbook versions are fully-functional.  The word and epub versions are developmental, have no templates behind them, and are essentially calls to the appropriate functions in bookdown.
+The pdf is functional. The thesis can also be compiled to a gitbook without any apperent problems.
 
-If you are new to working with `bookdown`/`rmarkdown`, please read over the documentation available in the `gitbook` template at https://thesisdown.netlify.com/.  This is also available below at http://ismayc.github.io/thesisdown_book.
+The thesisdown documentation may be to your assitance! Please read over the documentation available in the `gitbook` template at https://thesisdown.netlify.com/.  This is also available below at http://ismayc.github.io/thesisdown_book.
 
-The current output for the four versions is here:
-- [PDF](https://github.com/ismayc/thesisdown_book/blob/gh-pages/thesis.pdf) (Generating LaTeX file is available [here](https://github.com/ismayc/thesisdown_book/blob/gh-pages/thesis.tex) with other files at in the [book directory](https://github.com/ismayc/thesisdown_book/tree/gh-pages).)
-- [Word](https://github.com/ismayc/thesisdown_book/blob/gh-pages/thesis.docx)
-- [ePub](https://github.com/ismayc/thesisdown_book/blob/gh-pages/thesis.epub)
-- [gitbook](http://ismayc.github.io/thesisdown_book)
-
-Under the hood, the Reed College LaTeX template is used to ensure that documents conform precisely to submission standards. At the same time, composition and formatting can be done using lightweight [markdown](http://rmarkdown.rstudio.com/authoring_basics.html) syntax, and **R** code and its output can be seamlessly included using [rmarkdown](http://rmarkdown.rstudio.com).
-
-## Customizing thesisdown to your institution
-
-In an ideal world, this package would support a variety of different LaTeX templates from a wide range of institutions and we'd love to get it there at some point. Until that time, realize that this was designed to only work with the Reed College LaTeX template but others have adapted it to work with their institutions.  Here are a couple that have customized it to fit their needs.  It is recommended you review how they changed the files by comparing their repositories to this one and then make tweaks to yours as needed.  Feel free to file an issue on this repo if you have questions/troubles:
-
-- Mine Cetinkaya-Rundel at Duke University: [thesisdowndss](https://github.com/mine-cetinkaya-rundel/thesisdowndss)
-- Zhian Kamvar at Oregon State University: [beaverdown](https://github.com/zkamvar/beaverdown)
-- Ben Marwick at the University of Washington: [huskydown](https://github.com/benmarwick/huskydown)
-- Jake Thompson at the University of Kansas: [jayhawkdown](https://github.com/wjakethompson/jayhawkdown)
+Authoring is done in [markdown](http://rmarkdown.rstudio.com/authoring_basics.html) syntax, and **R** code and its output can be seamlessly included using [rmarkdown](http://rmarkdown.rstudio.com).
 
 
-### Using thesisdown from Chester's GitHub
+### Using [thesisdown](https://github.com/ismayc/thesisdown)
+
+The following instructions apply to the thesisdowngih version also.
 
 Using **thesisdown** has some prerequisites which are described below. To compile PDF documents using **R**, you are going to need to have LaTeX installed.  It can be downloaded for Windows at <http://http://miktex.org/download> and for Mac at <http://tug.org/mactex/mactex-download.html>.  Follow the instructions to install the necessary packages after downloading the (somewhat large) installer files.  You may need to install a few extra LaTeX packages on your first attempt to knit as well.
 
@@ -39,17 +26,15 @@ separately or install a newer RStudio.
     #> [1] TRUE
     ```
 
-2) Install the **bookdown** and **thesisdown** packages: 
+2) Install the **bookdown** and **thesisdowngih** packages: 
 
 ```
 install.packages("devtools")
 devtools::install_github("rstudio/bookdown")
-devtools::install_github("ismayc/thesisdown")
+devtools::install_github("dhammarstrom/thesisdowngih")
 ```
 
 3) Use the **New R Markdown** dialog to select **Thesis**:
-
-    ![New R Markdown](thesis_rmd.png)
 
     Note that this will currently only **Knit** if you name the directory `index` as shown above.
 

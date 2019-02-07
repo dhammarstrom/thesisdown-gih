@@ -1,14 +1,12 @@
-Package: thesisdown
-Title: An updated R Markdown thesis template using the bookdown package
+Package: thesisdowngih
+Title: An updated R Markdown thesis template for GIH using the bookdown package
 Version: 0.0.2
-Authors@R: c(
+Authors@R: c(person("Daniel", "Hammarström", email = "daniel.hammarstrom@inn.no", role = "aut"),
     person("Chester", "Ismay", email = "chester.ismay@gmail.com", role = "cre"),
     person("Nick", "Solomon", email = "nick@nicksolomon.me", role = "aut"))
-Description: Using the bookdown package and LaTeX and Word thesis templates from
-    Reed College, this package aims to encourage reproducible research using
-    simple Markdown syntax while embedding all of the R code to produce plots
-    and analyses as well.
-Maintainer: Chester Ismay <chester.ismay@gmail.com>
+Description: This is a slightly modified version of the thesisdown package. Modifications include
+    changes to comply with PhD-thesis standards at the Swedish School of Sport and Health Sciences (GIH).
+Maintainer: Daniel Hammarström <daniel.hammarstrom@inn.no>
 Depends:
     R (>= 3.2.0),
     devtools,

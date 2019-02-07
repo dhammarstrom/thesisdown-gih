@@ -1,20 +1,20 @@
 ---
 author: 'Your R. Name'
 date: 'May 20xx'
-institution: 'Reed College'
-division: 'Mathematics and Natural Sciences'
-advisor: 'Advisor F. Name'
-#altadvisor: 'Your Other Advisor'
-# Delete line 6 if you only have one advisor
-department: 'Mathematics'
-degree: 'Bachelor of Arts'
-title: 'My Final College Paper'
+year: '20XX'
+isbn: 'Provided by the library'
+place: 'Stockholm'
+printedby: 'Printer service, Stockholm, 2019'
+coverinfo: 'Cover illustration by: Name Name'
+sernr: '999' # Add number in "Avhandlingsserie" 
+title: 'Title of my thesis'
+subtitle: 'Subtitle of my thesis' # currently not in use ##
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
 output: 
-#  thesisdown::thesis_pdf: default
-  thesisdown::thesis_gitbook: default
-#  thesisdown::thesis_word: default
+  thesisdown::thesis_pdf: default
+#  thesisdown::thesis_gitbook: default
+#  thesisdown::thesis_word: default # The word and e-pub versions are not tested.
 #  thesisdown::thesis_epub: default
 # If you are creating a PDF you'll need to write your preliminary content here or
 # use code similar to line 20 for the files.  If you are producing in a different
@@ -24,13 +24,13 @@ abstract: |
 # If you'd rather include the preliminary content in files instead of inline
 # like below, use a command like that for the abstract above.  Note that a tab is 
 # needed on the line after the |.
-acknowledgements: |
-  I want to thank a few people.
 dedication: |
   You can have a dedication here if you wish. 
-preface: |
-  This is an example of a thesis setup to use the reed thesis document class
-  (for LaTeX) and the R bookdown package, in general.
+#preface: | # If you wish to add a preface, remove comments on these lines
+#  This is an example of a thesis setup to use the reed thesis document class
+#  (for LaTeX) and the R bookdown package, in general.
+defence: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-defence.Rmd"), collapse = '\n  ')`
 bibliography: bib/thesis.bib
 # Download your specific bibliography database file and refer to it in the line above.
 csl: csl/apa.csl
@@ -44,17 +44,15 @@ lof: true
 #- \usepackage{tikz}
 ---
 
+
 <!--
 Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
 
-If you'd prefer to not include a Dedication, for example, simply delete lines 17 and 18 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+If you'd prefer to not include a Dedication, for example, simply delete lines 27 and 28 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
 
 If you'd like to include a comment that won't be produced in your resulting file enclose it in a block like this.
 -->
 
-<!--
-If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
--->
 
 ```{r include_packages, include = FALSE}
 # This chunk ensures that the thesisdown package is
@@ -62,9 +60,9 @@ If you receive a duplicate label error after knitting, make sure to delete the i
 # the template files for the thesis.
 if(!require(devtools))
   install.packages("devtools", repos = "http://cran.rstudio.com")
-if(!require(thesisdown))
-  devtools::install_github("ismayc/thesisdown")
-library(thesisdown)
+if(!require(thesisdowngih))
+  devtools::install_github("dhammarstrom/thesisdowngih")
+library(thesisdowngih)
 ```
 
 <!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
@@ -72,13 +70,13 @@ PDF files and also delete the # before rmd_files: there.  You'll want to not inc
 and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
 -->
 
-<!-- The {.unnumbered} option here means that the introduction will be "Chapter 0." You can also use {-} for no numbers
-on chapters.
+<!-- If you add {.unnumbered} after the "Introduction" it means that the introduction will be "Chapter 0." You can also use {-} for no numbers
+on chapters. In the GIH template, Introduction is Chapter 1.
 -->
 
-# Introduction {.unnumbered}
+# Introduction
 
-Welcome to the _R Markdown_ thesis template. This template is based on (and in many places copied directly from) the Reed College LaTeX template, but hopefully it will provide a nicer interface for those that have never used TeX or LaTeX before.  Using _R Markdown_ will also allow you to easily keep track of your analyses in **R** chunks of code, with the resulting plots and output included as well.  The hope is this _R Markdown_ template gets you in the habit of doing reproducible research, which benefits you long-term as a researcher, but also will greatly help anyone that is trying to reproduce or build onto your results down the road.
+Welcome to the _R Markdown_ thesis template. This template is based on (and in many places copied directly from) the Reed College LaTeX template and supplemented with code from the [Stockholm University template](https://sv.sharelatex.com/templates/thesis/stockholm-university-phd-thesis) with modifications to fit requirements of a doctoral thesis at the [Swedish School of Sport and Health Sciences](http://www.gih.se). This is a fork of the amazing [thesisdown](https://github.com/ismayc/thesisdown) package. Using _R Markdown_ will allow you to easily keep track of your analyses in **R** chunks of code, with the resulting plots and output included as well.  The hope is this _R Markdown_ template gets you in the habit of doing reproducible research, which benefits you long-term as a researcher, but also will greatly help anyone that is trying to reproduce or build onto your results down the road.
 
 Hopefully, you won't have much of a learning period to go through and you will reap the benefits of a nicely formatted thesis.  The use of LaTeX in combination with _Markdown_ is more consistent than the output of a word processor, much less prone to corruption or crashing, and the resulting file is smaller than a Word file. While you may have never had problems using Word in the past, your thesis is likely going to be about twice as large and complex as anything you've written before, taxing Word's capabilities.  After working with _Markdown_ and **R** together for a few weeks, we are confident this will be your reporting style of choice going forward.
 
