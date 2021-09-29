@@ -1,25 +1,24 @@
 % This is the template used for the GIH thesis. It is based on 
-% Reed College LaTeX thesis template. Most of the work (Reed template)
+% Reed College LaTeX thesis template (provided through the thesisdown package).
+% Most of the work (Reed template)
 % for the document class was done by Sam Noble (SN), as well as this
 % template. Later comments etc. by Ben Salzberg (BTS). Additional
-% restructuring and APA support by Jess Youngberg (JY).
+% restructuring and APA support by Jess Youngberg (JY). 
+% The template was updated by Daniel Hammarström to fit GIH
+% requirements. Additional code was borrowed from the 
+% Stockholm University (Andreas Solders 2011) template.
 %
-% See http://web.reed.edu/cis/help/latex.html for help. There are a
-% great bunch of help pages there, with notes on
-% getting started, bibtex, etc. Go there and read it if you're not
-% already familiar with LaTeX.
-%
+% Changes to this template file can be made to further customize
+% your thesis. General help and resources regarding LaTeX can be found at 
+% https://www.latex-project.org/help/.
+% 
+
 % Any line that starts with a percent symbol is a comment.
 % They won't show up in the document, and are useful for notes
 % to yourself and explaining commands.
 % Commenting also removes a line from the document;
 % very handy for troubleshooting problems. -BTS
 
-% The template was updated by Daniel Hammarström to fit GIH
-% requirements. Additional code was borrowed from the 
-% Stockholm University (Andreas Solders 2011) template.
-
-% The template was forked from the thesisdown package (CII updates)
 
 %%
 %% Preamble
@@ -35,7 +34,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb,amsthm}
 \usepackage{longtable,booktabs,setspace}
-\usepackage{chemarr} %% Useful for one reaction arrow, useless if you're not a chem major
 \usepackage[hyphens]{url}
 % Added by CII
 \usepackage{hyperref,xcolor}
@@ -74,6 +72,7 @@
 
 % \usepackage{times} % other fonts are available like times, bookman, charter, palatino
 
+
 % Syntax highlighting #22
 $if(highlighting-macros)$
   $highlighting-macros$
@@ -88,29 +87,14 @@ $endif$
 \coverinfo{$coverinfo$}
 \year{$year$}
 
-
-
 \title{$title$}
+
 \author{$author$}
-% The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
+
 \date{$date$}
 
-
-%If you have two advisors for some reason, you can use the following
-% Uncommented out by CII
 \sernr{$sernr$}
-% End of CII addition
-%%% Remember to use the correct department!
 
-% if you're writing a thesis in an interdisciplinary major,
-% uncomment the line below and change the text as appropriate.
-% check the Senior Handbook if unsure.
-%\thedivisionof{The Established Interdisciplinary Committee for}
-% if you want the approval page to say "Approved for the Committee",
-% uncomment the next line
-%\approvedforthe{Committee}
-
-% Added by CII
 %%% Copied from knitr
 %% maxwidth is the original width if it's less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
@@ -153,6 +137,11 @@ $preface$
 $abstract$
 }
 
+\Listofpapers{
+$listofpapers$
+}
+
+
 $for(header-includes)$
 	$header-includes$
 $endfor$
@@ -160,6 +149,7 @@ $endfor$
 %%
 %% End Preamble
 %%
+%
 
 
 % Added updated related to csl update in Pandoc
@@ -185,8 +175,6 @@ $if(csl-refs)$
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth}{#1}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 $endif$
-
-
 
 
 
@@ -233,7 +221,11 @@ $if(abstract)$
   \end{abstract}
 $endif$
 
-
+$if(listofpapers)$
+  \begin{listofpapers}
+    $listofpapers$
+  \end{listofpapers}
+$endif$
 
 
 $if(toc)$

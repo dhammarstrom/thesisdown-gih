@@ -44,7 +44,7 @@ thesis_pdf <- function(toc = TRUE, toc_depth = 3, highlight = "default", ...){
 #' @return A gitbook webpage
 #' @examples
 #' \dontrun{
-#'  output: thesisdown::thesis_gitbook
+#'  output: thesisdowngih::thesis_gitbook
 #' }
 thesis_gitbook <- function(...){
 

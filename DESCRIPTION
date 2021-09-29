@@ -1,6 +1,6 @@
 Package: thesisdowngih
 Title: An updated R Markdown thesis template for GIH using the bookdown package
-Version: 0.0.2
+Version: 0.1.0
 Authors@R: c(person("Daniel", "Hammarström", email = "daniel.hammarstrom@inn.no", role = "aut"),
     person("Chester", "Ismay", email = "chester.ismay@gmail.com", role = "cre"),
     person("Nick", "Solomon", email = "nick@nicksolomon.me", role = "aut"))
@@ -18,4 +18,4 @@ License: MIT
 Encoding: UTF-8
 LazyData: true
 SystemRequirements: pandoc (>= 1.18) - http://pandoc.org
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1

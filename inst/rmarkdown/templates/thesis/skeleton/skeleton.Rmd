@@ -12,26 +12,31 @@ subtitle: 'Subtitle of my thesis' # currently not in use ##
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
 output: 
-  thesisdown::thesis_pdf: default
-#  thesisdown::thesis_gitbook: default
-#  thesisdown::thesis_word: default # The word and e-pub versions are not tested.
-#  thesisdown::thesis_epub: default
+  thesisdowngih::thesis_pdf: default
+  latex_engine: xelatex
+  citation_package: natbib
+#  thesisdowngih::thesis_gitbook: default
+#  thesisdowngih::thesis_word: default # The word and e-pub versions are not tested.
+#  thesisdowngih::thesis_epub: default
 # If you are creating a PDF you'll need to write your preliminary content here or
 # use code similar to line 20 for the files.  If you are producing in a different
 # format than PDF, you can delete or ignore lines 20-31 in this YAML header.
 abstract: |
-  `r if(knitr:::is_latex_output()) paste(readLines("00-abstract.Rmd"), collapse = '\n  ')`
+  `r if(knitr:::is_latex_output()) paste(readLines("00--abstract.md"), collapse = '\n  ')`
 # If you'd rather include the preliminary content in files instead of inline
 # like below, use a command like that for the abstract above.  Note that a tab is 
 # needed on the line after the |.
+listofpapers: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00--listofpapers.md"), collapse = '\n  ')`
 dedication: |
   You can have a dedication here if you wish. 
 #preface: | # If you wish to add a preface, remove comments on these lines
 #  This is an example of a thesis setup to use the reed thesis document class
 #  (for LaTeX) and the R bookdown package, in general.
 defence: |
-  `r if(knitr:::is_latex_output()) paste(readLines("00-defence.Rmd"), collapse = '\n  ')`
-bibliography: bib/thesis.bib
+  `r if(knitr:::is_latex_output()) paste(readLines("00--defence.md"), collapse = '\n  ')`
+bibliography: 
+  - bib/thesis.bib
 # Download your specific bibliography database file and refer to it in the line above.
 csl: csl/apa.csl
 # Download your specific csl file and refer to it in the line above.
@@ -40,23 +45,46 @@ lof: true
 #space_between_paragraphs: true
 # Delete the # at the beginning of the previous line if you'd like
 # to have a blank new line between each paragraph
-#header-includes:
-#- \usepackage{tikz}
+header-includes:
+#- \usepackage{erewhon}
+#- \usepackage{lipsum}
+#  \usepackage[utf8]{inputenc}
+#  \usepackage[T1]{fontenc}
+#  \usepackage{libertine}
+#  \usepackage[svgnames]
+#- \usepackage{GoudyIn}
+#- \usepackage{xcolor}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lettrine}
+  \usepackage{booktabs}
+  \usepackage{longtable}
+  \usepackage{array}
+  \usepackage{multirow}
+  \usepackage{wrapfig}
+  \usepackage{float}
+  \usepackage{colortbl}
+  \usepackage{pdflscape}
+  \usepackage{tabu}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage[normalem]{ulem}
+  \usepackage{makecell}
+  \usepackage{siunitx}
 ---
 
 
 <!--
-Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the final thesis. Be careful with spacing in this header!
 
-If you'd prefer to not include a Dedication, for example, simply delete lines 27 and 28 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+If you'd prefer to not include a Dedication, for example, simply delete lines 27 and 28 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines. The added LaTeX packages in this template will aid in making the compiling of the documents as smooth as possible.
 
-If you'd like to include a comment that won't be produced in your resulting file enclose it in a block like this.
+If you'd like to include a comment that won't be produced in your resulting file enclose it in a block like this. Comments are great to keep notes during writing and to comment e.g. references. 
 -->
 
 
 ```{r include_packages, include = FALSE}
-# This chunk ensures that the thesisdown package is
-# installed and loaded. This thesisdown package includes
+# This chunk ensures that the thesisdowngih package is
+# installed and loaded. The thesisdowngih package includes
 # the template files for the thesis.
 if(!require(devtools))
   install.packages("devtools", repos = "http://cran.rstudio.com")
@@ -65,33 +93,80 @@ if(!require(thesisdowngih))
 library(thesisdowngih)
 ```
 
-<!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
-PDF files and also delete the # before rmd_files: there.  You'll want to not include 00(two-hyphens)prelim.Rmd
-and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
+<!-- Using the _bookdown.yml file, you can specify what files/chapters are to be included in your thesis. This file also determines the order of chapters. The files 00--abstract.md, 00--listofpapers.md and 00--defence.md are not included through the bookdown.yml file but instead trough the template.tex and the YAML field in this index.Rmd file.  
+
 -->
 
 <!-- If you add {.unnumbered} after the "Introduction" it means that the introduction will be "Chapter 0." You can also use {-} for no numbers
 on chapters. In the GIH template, Introduction is Chapter 1.
 -->
 
+\setcounter{DefaultLines}{3} <!-- This starts the page numbering at the right place -->
+
 # Introduction
 
-Welcome to the _R Markdown_ thesis template. This template is based on (and in many places copied directly from) the Reed College LaTeX template and supplemented with code from the [Stockholm University template](https://sv.sharelatex.com/templates/thesis/stockholm-university-phd-thesis) with modifications to fit requirements of a doctoral thesis at the [Swedish School of Sport and Health Sciences](http://www.gih.se). This is a fork of the amazing [thesisdown](https://github.com/ismayc/thesisdown) package. Using _R Markdown_ will allow you to easily keep track of your analyses in **R** chunks of code, with the resulting plots and output included as well.  The hope is this _R Markdown_ template gets you in the habit of doing reproducible research, which benefits you long-term as a researcher, but also will greatly help anyone that is trying to reproduce or build onto your results down the road.
+Welcome to the _R Markdown_ thesis template made to meet the requirements for a **kappa** at the [Swedish School of Sport and Health Sciences (GIH)](http://www.gih.se). This template is based on (and in many places copied directly from) the Reed College LaTeX template and supplemented with code from the [Stockholm University template](https://sv.sharelatex.com/templates/thesis/stockholm-university-phd-thesis) with modifications. This package (`thesisdowngih`) is a readjustment of the amazing [thesisdown](https://github.com/ismayc/thesisdown) package.
 
-Hopefully, you won't have much of a learning period to go through and you will reap the benefits of a nicely formatted thesis.  The use of LaTeX in combination with _Markdown_ is more consistent than the output of a word processor, much less prone to corruption or crashing, and the resulting file is smaller than a Word file. While you may have never had problems using Word in the past, your thesis is likely going to be about twice as large and complex as anything you've written before, taxing Word's capabilities.  After working with _Markdown_ and **R** together for a few weeks, we are confident this will be your reporting style of choice going forward.
+The main motivation for creating this template was to enable a fully reproducible work-flow for writing and compiling [my doctoral thesis at GIH](https://github.com/dhammarstrom/thesis). _R Markdown_, `bookdown`, `knitr`, [Pandoc](https://pandoc.org/), \text{LaTeX} and auxiliary packages helps make this possible. Besides enabling reproducibility (by combining text, code and data), writing your thesis in _R Markdown_ also makes it nicely formatted, with the aid of this template. 
 
-<!-- 
-If you're still on the fence about using _R Markdown_, check out the resource for newbies available at <https://ismayc.github.io/rbasics-book/> or email us at <data@reed.edu>. 
--->
+Writing a thesis (kappa) is a big project. By taking advantage of a reproducible work-flow in combination with a version control system like git you will avoid some pitfalls in the final stretch of finalizing your project. Writing the thesis in an ordinary word processor (like MS Word) will be increasingly harder as the project grows. Keeping chapters separate, explicitly determining the layout and format of your resulting manuscript while keeping track of revisions in a version control system will make the final product more stable.    
 
-**Why use it?**
+## How it works
 
-_R Markdown_ creates a simple and straightforward way to interface with the beauty of LaTeX.  Packages have been written in **R** to work directly with LaTeX to produce nicely formatting tables and paragraphs. In addition to creating a user friendly interface to LaTeX, _R Markdown_ also allows you to read in your data, to analyze it and to visualize it using **R** functions, and also to provide the documentation and commentary on the results of your project.  Further, it allows for **R** results to be passed inline to the commentary of your results.  You'll see more on this later.  
+Download and install `thesisdowngih` from `GitHub` using the code below. `thesisdowngih` contains the template from which you can write your own thesis. Importantly, the template includes files that handles the formatting of the resulting file.  
 
-<!-- 
-Having your code and commentary all together in one place has a plethora of benefits!
--->
+```{r, eval = FALSE}
+library(devtools)
+devtools::install_github("dhammarstrom/thesisdowngih")
+```
 
-**Who should use it?**
+When `thesisdowngih` is installed you have everything you need to set up a template for your thesis. Make sure you have also started a new R Project, and prefferably that this project is linked to an online version controled repository (see below). You can now create a new `.Rmd` file, select "Thesis" from the list of templates in the dialogue. Name the new directory that is created "index". 
+You will have to change several files to remove text that is describing the template files. Start with the YAML-field in the `index.Rmd`.^[This requires that the new file/directory was created with the name `index.Rmd`] Here you should change, and eventually add the following information:
 
-Anyone who needs to use data analysis, math, tables, a lot of figures, complex cross-references, or who just cares about the final appearance of their document should use _R Markdown_. Of particular use should be anyone in the sciences, but the user-friendly nature of _Markdown_ and its ability to keep track of and easily include figures, automatically generate a table of contents, index, references, table of figures, etc. should make it of great benefit to nearly anyone writing a thesis project.
+|Field |Information|
+| --- | --- |
+|author | Your name, will be listed in all places where the author name is required |
+|date | The date, month year is a suitable format (currently not in use)|
+|year | The year is used in the copyright information |
+|isbn | The ISBN number is provided by the library and added to the copyright infortmation |
+|place | Place (currently not in use but defined in template.tex and gihclass.cls)|
+|printedby | Name and location of the printer, added to copyright information |
+|coverinfo | coverinfo can be added to detail information on any cover images etc. Added to copyright information field | 
+|sernr | The serienummer is provided by the library and added to the copyright infortmation |
+|title | The title of your thesis |
+
+In the YAML field you will also specify if you want to have a list of figures (`lot: true`) and a list of tables (`lot: true`). You can add information on where you keep your bibliography and how you want to format your references (`csl`) (see [here for and introduction to citations in _R Markdown_ ](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html)). Formatting of references can be done by specifying a `csl` file. The content of such a file can be copied from a style of your preference. Such citation style language files are available at [http://github.com/citation-style-language/styles](https://github.com/citation-style-language/styles). Keep `csl` files in the `/csl` folder and bibliography files in the `/bib` folder of your project.
+
+Next step is to remove the text in below the YAML field and replace it with your own text. This file is also your Chapter 1. This can be used as an introductory chapter or if you want to go straight on the background of your thesis. When creating the template, you will have additional files that makes up the template manuscript. These files can now be replaced or changed. If you wnat othe file names, make sure you change the included files in the _bookdown.yml file. This file determines the order and content of your whole book by combining the files in their respective order. Name new files with a chapter number and descriptive title, avoid spaces and special characters.
+
+The files `00--listofpapers.md`, `00--abstract.md` and `00--defence.md` needs to be edited to include your specific content. These are not technically chapters of your book but instead included as part of the preamble. 
+
+By editing the last chapter (`99-refereces.Rmd`) you can make changes to your reference list. You might want to control the font size etc. in addition to changes that are controlled through the `csl` file.
+
+## Recommended best practices
+
+### Data, code and text
+
+Organize your project with separate sub-folders for data (`/data`) and additional R scripts (`/R`). Heavy computations can be moved to separate R scripts with results saved as derived data (`/data/derivedData`). This will speed up the rendering of the manuscript file and "isolate" code from the manuscript file. If this appoach is used, documenting such scripts and the resulting data is important for transparency. If code is kept in the `.Rmd` chapter files, code chunks may be cached to enable faster rendering of the resulting document. A good naming scheme with overlap between raw data, derived data, scripts and code chunks are a vital part of keeping track of your thesis.
+
+R code can be more or less readable. Good practices makes the code more readable, see style guides for further directions [Advanced R, style guide](http://adv-r.had.co.nz/Style.html).
+
+Extensive use of `html` comments in the text part of your manuscript can also aid in keeping track of references, revisions, disposition etc. A `html` comment can be added to _R Markdown_ using the following syntax:
+
+```
+
+<!-- This is a comment --->
+
+```
+
+
+### Version control and online backup
+
+Version control helps you keep track of revisions, avoid catastrophe when making large complicated updates to your project, and in theory, collaborate with other on your project. A very well established solution is the use of [GitHub](www.github.com) together with RStudio projects. When starting your manuscript writing you do so in the framework of a R Project linked to an online repository hosted on [GitHub](www.github.com). The online repository will also function as an online backup. This repository can be made public or private. 
+
+To enable version control you must have R and [RStudio](www.rstudio.com) installed together with [git](https://git-scm.com/) and an account set up at [GitHub](www.github.com). To get started with version control in R and RStudio, see [Happy Git and GitHub for the useR](https://happygitwithr.com/).
+
+
+
+
+

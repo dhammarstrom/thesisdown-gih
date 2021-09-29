@@ -79,6 +79,9 @@
 \usepackage{calligra}
 % For text positioning 
 \usepackage{textpos}
+\usepackage{changepage}
+
+
 
 
 \renewcommand\boldsymbol[1]{\pmb{#1}}
@@ -115,17 +118,24 @@
 
 % This gives us rules below the headers
 \AtBeginDocument{%
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
+ \fancyhf{}
+ \fancyfoot[LE,RO]{\thepage}
 %  \fancyhead[RE]{\slshape \leftmark}
 %  \fancyhead[LO]{\slshape \rightmark}
 %	The above makes your headers in all caps. If you would like different headers, choose one of the following options (be sure to remove the % symbol from both the right and left headers):
-% \fancyhead[RE]{\slshape \nouppercase \leftmark} % This makes the headers on the RIGHT side pages be italic and use lowercase With Capitals When Specified.
-% \fancyhead[LO]{\slshape \nouppercase \rightmark} % This does the same thing to the LEFT side pages
+% \fancyfoot[RE]{\slshape \nouppercase} % This makes the headers on the RIGHT side pages be italic and use lowercase With Capitals When Specified.
+% \fancyfoot[LO]{\slshape \nouppercase} % This does the same thing to the LEFT side pages
+
+\renewcommand{\headrulewidth}{0pt}
 %	or
-	\fancyhead[RE]{\scshape \leftmark} % The RIGHT headers will be in small caps.
-	\fancyhead[LO]{\scshape \rightmark} %  And so will the LEFT headers
-\pagestyle{fancy}
+%	\fancyhead[RE]{\scshape \leftmark} % The RIGHT headers will be in small caps.
+%	\fancyhead[LO]{\scshape \rightmark} %  And so will the LEFT headers
+ \pagestyle{fancy}
+
+
+
+
+
 
 % Psych majors: You do not need the following six lines, as it conflicts with apacite, so comment them out.
 \let\oldthebibliography=\thebibliography
@@ -202,14 +212,16 @@
 \geometry{left=22.5mm,right=22.5mm}
 \geometry{top=22.5mm,bottom=22.5mm}
 
+\setlength{\headheight}{22.49pt} % fixes warning?
+
 
 %Make al headlines non-fat
 \def\section{\@startsection {section}{1}{\z@}{-3.5ex plus -1ex minus 
-    -.2ex}{2.3ex plus .2ex}{\Large}}
+    -.2ex}{2.3ex plus .2ex}{\Large\sffamily}}
 \def\subsection{\@startsection{subsection}{2}{\z@}{-3.25ex plus -1ex minus 
-   -.2ex}{1.5ex plus .2ex}{\large}}
+   -.2ex}{1.5ex plus .2ex}{\large\sffamily}}
 \def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-3.25ex plus
--1ex minus -.2ex}{1.5ex plus .2ex}{\normalsize}}
+-1ex minus -.2ex}{1.5ex plus .2ex}{\normalsize\sffamily}}
 
 
 % Change font for text and titles (DH 2019-02-05)
@@ -231,7 +243,8 @@
     \ifnum \c@secnumdepth >\m@ne
       % Skipping the "Chapter n" text 
       \if@mainmatter
-        \baselineskip=20pt\rightskip 2cm plus 3cm\huge\thechapter.\hspace{0.5em}%Chapterpoint added.
+        \baselineskip=20pt\rightskip 2cm plus 3cm\huge\thechapter\hspace{0.5em} 
+        %If a period is needed after chapters add . to after thechapter ex: "\thechapter.\ .
       \fi
     \fi
     \huge #1\par\nobreak
@@ -319,7 +332,7 @@
 \else
 \@restonecolfalse
 \fi
-\fontsize{10}{12}\selectfont
+\fontsize{8}{10}\selectfont
 }{\clearpage \if@restonecol\twocolumn\fi}%
 
 
@@ -344,7 +357,7 @@
 \@restonecolfalse
 \fi
 \chapter*{Preface}
-\fontsize{12}{14}\selectfont
+\fontsize{10}{12}\selectfont
 }{\clearpage \if@restonecol\twocolumn\fi}%
 % End of CII add
 
@@ -355,8 +368,22 @@
 \@restonecolfalse
 \fi
 \chapter*{Abstract}
-\fontsize{12}{14}\selectfont
+\fontsize{10}{12}\selectfont
 }{\clearpage \if@restonecol\twocolumn\fi}%
+
+
+\newenvironment{listofpapers}{%
+\if@twocolumn
+\@restonecoltrue\onecolumn
+\else
+\@restonecolfalse
+\fi
+\chapter*{List of scientific papers}
+\fontsize{10}{12}\selectfont
+}{\clearpage \if@restonecol\twocolumn\fi}%
+
+
+
 
 \newenvironment{dedication}{%
 \thispagestyle{empty}
@@ -364,7 +391,12 @@
 \@restonecoltrue\onecolumn
 \else
 \@restonecolfalse
-\fi
+\flushright
+
+\phantom{.}
+
+\vspace{\stretch{1}}
+\itshape
 % \chapter*{Dedication} % removed dedication header 
 \fontsize{12}{14}\selectfont
 }{\clearpage \if@restonecol\twocolumn\fi}%
@@ -384,14 +416,14 @@
 
 
 \newcommand{\fromtop}[1]{%
-  \dimexpr-1in-\topskip-\topmargin-\headheight-\headsep+#1\relax
+ \dimexpr-1in-\topskip-\topmargin-\headheight-\headsep+#1\relax
 }
 \newcommand{\fromleft}[1]{%
-  \dimexpr-1in-\oddsidemargin+#1\relax
+ \dimexpr-1in-\oddsidemargin+#1\relax
 }
 
 
-\crest{\includegraphics[width=60mm]{eng_logoGIH_tryck}}
+\crest{\includegraphics[width=80mm]{eng_logoGIH_tryck}}
 
 \renewcommand{\maketitle}{%
         {\pagenumbering{alph}
@@ -405,20 +437,23 @@
 
 \begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{4cm})
 \centering
-\lsstyle\normalsize{Avhandlingsserie f\"{o}r \\ Gymnastik- och Idrottsh\"{o}gskolan}
+\fontfamily{ptm}\lsstyle\normalsize{Avhandlingsserie f\"{o}r \\ Gymnastik- och idrottsh\"{o}gskolan}
 \end{textblock*}
 
 
 \begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{6cm})
-\centering
+\fontfamily{ptm}\centering
 Nr~\@sernr
 \end{textblock*}
 
 
 
 \begin{textblock*}{\paperwidth}(\fromleft{0cm},\fromtop{8cm})
+
+\begin{adjustwidth}{1.5cm}{1.5cm}
 \centering
-\large\MakeUppercase{\@title}
+\fontfamily{ptm}\large\MakeUppercase{\@title}
+\end{adjustwidth}
 \end{textblock*}
 
 
@@ -428,10 +463,11 @@ Nr~\@sernr
     \renewcommand{\footnotesize}{\small}
     \renewcommand{\footnoterule}{\relax}
    % \thispagestyle{empty}
-{\large \vspace*{0mm} \hspace*{0mm} {{\@crest} \par} } %Move the logo
-    { \Huge \vspace*{30mm}{\noindent}{\@title} \par \vspace*{4mm}}
+{\large \vspace*{0mm} \hspace*{-5mm} {{\@crest} \par} } %Move the logo
+    { \fontsize{20pt}{16pt}\fontfamily{ptm}\selectfont \vspace*{30mm}{\noindent}{\@title} \par \vspace*{8mm}}
     \bigskip
-    {{\LARGE {\noindent}\@author} \par}
+    \bigskip
+    {\fontsize{16pt}{16pt}\fontfamily{ptm}\selectfont{\LARGE {\noindent}\@author} \par}
   \null\vfill
 
 
@@ -446,22 +482,24 @@ Nr~\@sernr
 
 {\scriptsize
 \noindent
-\copyright \@author,~ \@place~ \@year % Name of author, location year
- 
-\vspace{3mm}
+\copyright~ \@author % \@place~ \@year % Name of author, location year
+\\*
+\noindent
+Gymnastik- och idrottsh\"{o}gskolan~\@year
+\\*
 \noindent
 ISBN \@isbn % Provided by the library
 
-\vspace{3mm}
+\vspace{1mm}
 \noindent
 \@coverinfo % 
-
-\vspace{3mm}
+\\*
 \noindent
-Printed by \@printeby %name of printing company
+Printed by: \@printeby %name of printing company
+\\*
+Distributor: Gymnastik- och idrottsh\"{o}gskolan  %name of department
 
-\noindent
-Distributor: Gymnastik- och idtrottsh\"{o}gskolan  %name of department
+\vspace{2mm}
 }
 
 
@@ -477,9 +515,14 @@ Distributor: Gymnastik- och idtrottsh\"{o}gskolan  %name of department
 %\newcommand{\Shorttitle}[1]{\def\@Shorttitle{#1}}
 \newcommand{\Plainauthor}[1]{\def\@Plainauthor{#1}}
 \newcommand{\Abstract}[1]{\def\@Abstract{#1}}
+\newcommand{\Listofpapers}[1]{\def\@Listofpapers{#1}}
 %\newcommand{\Keywords}[1]{\def\@Keywords{#1}}
 %\newcommand{\Plainkeywords}[1]{\def\@Plainkeywords{#1}}
 \newcommand{\Acknowledgements}[1]{\def\@Acknowledgements{#1}}
 \newcommand{\Dedication}[1]{\def\@Dedication{#1}}
 \newcommand{\Preface}[1]{\def\@Preface{#1}}
 % End of CII add
+
+
+
+
